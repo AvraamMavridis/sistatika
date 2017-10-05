@@ -1,0 +1,17 @@
+@import './../../styles/pallette.scss';
+
+.default {
+  background: $wild-sand;
+  color: $ebony-clay;
+  padding: 5px;
+  border-radius: 2px;
+
+  &:hover {
+    border: 1px solid $chestnut-rose;
+    cursor: pointer;
+  }
+
+  &:focus {
+    outline: 1px solid $fountain-blue;
+  }
+}

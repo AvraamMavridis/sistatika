@@ -1,0 +1,6 @@
+{
+  "extends": "fbjs",
+  "rules": {
+    "jsx-a11y/no-noninteractive-tabindex": 0
+  }
+}

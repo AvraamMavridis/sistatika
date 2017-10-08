@@ -1,0 +1,101 @@
+@import '../../styles/pallette.scss';
+
+.steps {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+
+  .stepNumber {
+    color: $wild-sand;
+    background-color: $ebony-clay;
+    padding: 5px;
+    border-radius: 100%;
+    width: 24px;
+    text-align: center;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: transparentize($ebony-clay, 0.2);
+    }
+  }
+
+  .stepNumber:focus {
+    outline: 1px solid $fountain-blue;
+  }
+
+  .step:not(:last-of-type) {
+    width: 100%;
+    position: relative;
+
+    &:after {
+      content: '';
+      width: calc(100% - 45px);
+      background-color: $ebony-clay;
+      display: block;
+      position: absolute;
+      height: 1px;
+      left: 40px;
+      top: 17px;
+    }
+
+    .selected {
+      &:after {
+        background-color: $chestnut-rose;
+      }
+    }
+  }
+
+  .selectedNumber {
+    background-color: $chestnut-rose;
+    animation-name: bounceIn;
+
+    &:hover {
+      background-color: transparentize($chestnut-rose, 0.2);
+    }
+  }
+
+  .selected {
+      &:after {
+        background-color: $chestnut-rose !important;
+      }
+  }
+}
+
+@keyframes bounceIn {
+  from, 20%, 40%, 60%, 80%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  }
+
+  0% {
+    opacity: 0;
+    transform: scale3d(.3, .3, .3);
+  }
+
+  20% {
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+
+  40% {
+    transform: scale3d(.9, .9, .9);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+
+  80% {
+    transform: scale3d(.97, .97, .97);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}

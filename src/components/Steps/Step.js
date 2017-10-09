@@ -29,6 +29,7 @@ export default class Step extends PureComponent {
     return (
       <span className={stepClass}>
         <span
+          data-index={index}
           tabIndex={0}
           role="button"
           className={numberClass}

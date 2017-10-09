@@ -36,6 +36,7 @@ export default class Steps extends Component {
     };
 
     this.onSelect = this.onSelect.bind(this);
+    this.onKeyDown = this.onKeyDown.bind(this);
   }
 
   /**
@@ -49,11 +50,24 @@ export default class Steps extends Component {
   }
 
   /**
+   * Listen to keyboard events
+   *
+   * @param {any} e
+   */
+  onKeyDown(e) {
+    if (e.key === 'Enter' && this.steps.contains(document.activeElement)) {
+      this.setState({ selectedIndex: document.activeElement.dataset.index });
+    }
+  }
+
+  /**
    * Set state on mounting
    */
   componentWillMount() {
     const { selectedIndex } = this.props;
     this.setState({ selectedIndex });
+
+    document.addEventListener('keydown', this.onKeyDown);
   }
 
   /**
@@ -68,6 +82,13 @@ export default class Steps extends Component {
   }
 
   /**
+   * Cleanup
+   */
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.onKeyDown);
+  }
+
+  /**
    * Render Steps
    *
    * @returns {JSX.Element}
@@ -77,7 +98,7 @@ export default class Steps extends Component {
     const { selectedIndex } = this.state;
 
     return (
-      <span className={styles.steps}>
+      <span className={styles.steps} ref={(steps) => this.steps = steps }>
         {
           steps.map((text, i) => (
             <Step

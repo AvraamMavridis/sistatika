@@ -1,17 +1,38 @@
 @import './../../styles/pallette.scss';
+@import '../../styles/animations.scss';
 
 .default {
-  background: $wild-sand;
+  background-color: $wild-sand;
   color: $ebony-clay;
   padding: 5px;
   border-radius: 2px;
 
   &:hover {
-    border: 1px solid $chestnut-rose;
+    background-color: $french-gray;
     cursor: pointer;
   }
 
   &:focus {
     outline: 1px solid $fountain-blue;
+  }
+}
+
+.primary {
+  background-color: $chestnut-rose;
+  color: $wild-sand;
+  border: 1px solid $chestnut-rose;
+
+  &:hover {
+    background-color: transparentize($chestnut-rose, 0.2);
+  }
+}
+
+.secondary {
+  background-color: $ebony-clay;
+  color: $wild-sand;
+  border: 1px solid $ebony-clay;
+
+  &:hover {
+    background-color: transparentize($ebony-clay, 0.2);
   }
 }

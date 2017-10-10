@@ -1,5 +1,5 @@
 Steps example:
 
 ```js
-<Steps steps={["Step 1", "Step 2", "Step 3", "Step 4" ]} selectedIndex={1}/>
+<Steps steps={["Step 1", "Step 2", "Step 3", "Step 4" ]} selectedIndex={1} onSelect={(index) => console.log(index)}/>
 ```

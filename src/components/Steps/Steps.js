@@ -15,7 +15,11 @@ export default class Steps extends Component {
   static propTypes = {
     /** The selected index */
     selectedIndex: PropTypes.number,
-    /** Callback called when a step is selected */
+    /** Callback called when a step is selected
+     *
+     * @param {number} selectedIndex
+     * @param {SyntheticEvent} e
+     */
     onSelect: PropTypes.func,
     /** Array of steps */
     steps: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -23,6 +27,8 @@ export default class Steps extends Component {
 
   static defaultProps = {
     selectedIndex: Infinity,
+    onSelect: () => void (0),
+    steps: [],
   }
 
   /**
@@ -45,8 +51,10 @@ export default class Steps extends Component {
    * @param {Boolean} selectedIndex
    * @param {Event} e
    */
-  onSelect(selectedIndex, e) {
-    this.setState({ selectedIndex });
+  onSelect(selectedIndex, event) {
+    this.setState({ selectedIndex }, () => {
+      this.props.onSelect(selectedIndex, event);
+    });
   }
 
   /**

@@ -53,6 +53,7 @@
     "eslint-plugin-react": "^7.1.0",
     "eslint-plugin-relay": "0.0.19",
     "node-sass": "^4.5.3",
+    "now": "^8.3.10",
     "react-styleguidist": "^6.0.27",
     "resolve-url-loader": "^2.1.0",
     "sass-loader": "^6.0.6",

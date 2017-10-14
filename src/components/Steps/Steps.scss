@@ -52,10 +52,13 @@
     }
   }
 
-  .selectedNumber {
+  .selectedNumber  {
     background-color: $chestnut-rose;
-    animation-name: bounceIn;
-    animation-duration: 800ms;
+
+    &:focus {
+      animation-name: bounceIn;
+      animation-duration: 800ms;
+    }
 
     &:hover {
       background-color: transparentize($chestnut-rose, 0.2);

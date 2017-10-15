@@ -1,0 +1,15 @@
+@import './../../styles/pallette.scss';
+
+.accordionHeader {
+  color: $ebony-clay;
+  background-color: $wild-sand;
+  display: block;
+  border: 1px solid $french-gray;
+  padding: 5px;
+  margin: 2px 0px;
+  text-decoration: none;
+}
+
+.accordionChildrenClass {
+  padding: 0px 0px 0px 15px;
+}

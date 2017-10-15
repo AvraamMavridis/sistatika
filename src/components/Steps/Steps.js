@@ -84,7 +84,7 @@ export default class Steps extends Component {
    * @param {any} { selectedIndex }
    */
   componentWillReceiveProps({ selectedIndex }) {
-    if (selectedIndex && this.nextProps.selectedIndex !== selectedIndex) {
+    if (selectedIndex && this.props.selectedIndex !== selectedIndex) {
       this.setState({ selectedIndex });
     }
   }

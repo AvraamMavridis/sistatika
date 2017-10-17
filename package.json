@@ -45,6 +45,9 @@
     "styleguide:build": "styleguidist build"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^3.2.12",
+    "@storybook/addon-info": "^3.2.12",
+    "@storybook/react": "^3.2.12",
     "babel-eslint": "^7.2.3",
     "eslint": "^4.4.1",
     "eslint-config-fbjs": "^2.0.0",

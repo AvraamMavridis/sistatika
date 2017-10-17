@@ -32,3 +32,15 @@
     }
   }
 }
+
+:global {
+  @keyframes hide {
+      from {
+        max-height: 0;
+      }
+
+      to {
+        max-height: 1200px;
+      }
+    }
+}

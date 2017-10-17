@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styles from './Accordion.scss';
+import classNames from 'classnames';
 
 /**
  * AccordionItem Component
@@ -11,6 +12,12 @@ import styles from './Accordion.scss';
  */
 export default class AccordionItem extends Component {
 
+  /**
+   * Default config
+   *
+   * @static
+   * @memberof AccordionItem
+   */
   static defaultProps = {
     expande: false,
     onToggle: () => void (0),
@@ -64,7 +71,9 @@ export default class AccordionItem extends Component {
     const { expanded } = this.state;
     const { children, header } = this.props;
     const accordionHeaderClass = styles.accordionHeader;
-    const accordionChildrenClass = styles.accordionChildrenClass;
+    const accordionChildrenClass = classNames(styles.accordionChildrenClass, {
+      [styles.expanded]: expanded,
+    });
 
     return (
       <div>

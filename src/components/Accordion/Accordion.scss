@@ -1,4 +1,5 @@
 @import './../../styles/pallette.scss';
+@import './../../styles/animations.scss';
 
 .accordionHeader {
   color: $ebony-clay;
@@ -12,4 +13,11 @@
 
 .accordionChildrenClass {
   padding: 0px 0px 0px 15px;
+  max-height: 0px;
+}
+
+.hidden {
+  animation-duration: 500ms;
+  animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+  animation-name: hide;
 }

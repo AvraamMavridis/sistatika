@@ -72,8 +72,10 @@ export default class AccordionItem extends Component {
     const { children, header } = this.props;
     const accordionHeaderClass = styles.accordionHeader;
     const accordionChildrenClass = classNames(styles.accordionChildrenClass, {
-      [styles.expanded]: expanded,
+      [styles.collapsed]: !expanded,
     });
+
+    console.log(accordionChildrenClass);
 
     return (
       <div>

@@ -12,12 +12,17 @@
 }
 
 .accordionChildrenClass {
+  overflow-y: hidden;
   padding: 0px 0px 0px 15px;
-  max-height: 0px;
+  transition-property: all;
+  transition-duration: 1s;
+  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+
+  &.collapsed {
+    max-height: 0px;
+    transition-property: all;
+    transition-duration: 1s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+  }
 }
 
-.hidden {
-  animation-duration: 500ms;
-  animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-  animation-name: hide;
-}

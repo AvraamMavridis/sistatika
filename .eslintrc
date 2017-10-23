@@ -1,6 +1,8 @@
 {
   "extends": "fbjs",
   "rules": {
-    "jsx-a11y/no-noninteractive-tabindex": 0
+    "jsx-a11y/no-noninteractive-tabindex": 0,
+    "max-len": [2,120],
+    "keyword-spacing": 0
   }
 }

@@ -75,8 +75,6 @@ export default class AccordionItem extends Component {
       [styles.collapsed]: !expanded,
     });
 
-    console.log(accordionChildrenClass);
-
     return (
       <div>
         <a className={accordionHeaderClass}

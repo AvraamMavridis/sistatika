@@ -1,28 +1,52 @@
 @import './../../styles/pallette.scss';
 @import './../../styles/animations.scss';
 
-.accordionHeader {
-  color: $ebony-clay;
-  background-color: $wild-sand;
-  display: block;
-  border: 1px solid $french-gray;
-  padding: 5px;
-  margin: 2px 0px;
-  text-decoration: none;
-}
+:global {
+  .accordion-header {
+    color: $ebony-clay;
+    background-color: $wild-sand;
+    display: block;
+    border: 1px solid $french-gray;
+    padding: 5px;
+    margin: 2px 0px;
+    text-decoration: none;
+    position: relative;
 
-.accordionChildrenClass {
-  overflow-y: hidden;
-  padding: 0px 0px 0px 15px;
-  transition-property: all;
-  transition-duration: 1s;
-  transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    &::after {
+      content: ">";
+      position: absolute;
+      right: 10px;
+      top: 4px;
+    }
+  }
 
-  &.collapsed {
-    max-height: 0px;
-    transition-property: all;
+  .accordion-header--expanded {
+    &::after {
+      content: ">";
+      position: absolute;
+      right: 10px;
+      top: 4px;
+      transform: rotate(90deg);
+    }
+  }
+
+
+  .accordion-content {
+    overflow-y: hidden;
+    height: 200px;
+    transition-property: height;
     transition-duration: 1s;
     transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+
+
+    &.accordion-content--collapsed {
+      height: 0px;
+      transition-property: height;
+      transition-duration: 1s;
+      transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+    }
   }
 }
+
+
 

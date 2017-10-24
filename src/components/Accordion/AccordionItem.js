@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import styles from './Accordion.scss';
+import './Accordion.scss';
 import classNames from 'classnames';
 
 /**
@@ -10,7 +10,7 @@ import classNames from 'classnames';
  * @class AccordionItem
  * @extends {Component}
  */
-export default class AccordionItem extends Component {
+export default class AccordionItem extends PureComponent {
 
   /**
    * Default config
@@ -21,6 +21,8 @@ export default class AccordionItem extends Component {
   static defaultProps = {
     expande: false,
     onToggle: () => void (0),
+    accordionHeaderClass: '',
+    accordionChildrenClass: '',
   }
 
   /**
@@ -33,6 +35,8 @@ export default class AccordionItem extends Component {
     id: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,
     header: PropTypes.node.isRequired,
+    accordionHeaderClass: PropTypes.string,
+    accordionChildrenClass: PropTypes.string,
   }
 
   /**
@@ -55,9 +59,10 @@ export default class AccordionItem extends Component {
    * @memberof AccordionItem
    */
   toggleItem(e) {
-    const { onToggle, id } = this.props;
+    const { onToggle, id, index } = this.props;
+    const key = id !== undefined ? id : index;
     this.setState({ expanded: !this.state.expanded }, () => {
-      onToggle(id, this.state.expanded, e);
+      onToggle(key, this.state.expanded, e);
     });
   }
 
@@ -69,24 +74,33 @@ export default class AccordionItem extends Component {
    */
   render() {
     const { expanded } = this.state;
-    const { children, header } = this.props;
-    const accordionHeaderClass = styles.accordionHeader;
-    const accordionChildrenClass = classNames(styles.accordionChildrenClass, {
-      [styles.collapsed]: !expanded,
+    const { children, header, id, index } = this.props;
+    const key = id !== undefined ? id : index;
+    const accordionHeaderClass = classNames('accordion-header', this.props.accordionHeaderClass, {
+      'accordion-header--expanded': expanded,
     });
+    const accordionChildrenClass = classNames('accordion-content', this.props.accordionChildrenClass, {
+      'accordion-content--collapsed': !expanded,
+    });
+
+    const section = `section-${key}`;
+    const buttonID = `accordion-${key}`;
 
     return (
       <div>
         <a className={accordionHeaderClass}
           href="#"
+          id={buttonID}
+          aria-controls={section}
+          aria-expanded={expanded}
           onClick={this.toggleItem}
           role="button"
           tabIndex={0}>
-          <div>{header}</div>
+          <div role="heading" aria-level="3">{header}</div>
         </a>
-        <p className={accordionChildrenClass}>
+        <div className={accordionChildrenClass} aria-labelledby={buttonID} id={section} role="region">
           { children }
-        </p>
+        </div>
       </div>
     );
   }

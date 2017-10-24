@@ -1,12 +1,12 @@
 {
   "name": "react-network-info",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "HoC providing info about the network conditions",
   "main": "./lib/index.js",
   "scripts": {
     "test": "npm run compile && mocha --compilers js:babel-register --require babel-polyfill",
-    "compile": "babel --presets react,stage-0 --require babel-polyfill -d lib/ ./index.js",
-    "prepublish": "npm run compile"
+    "compile": "babel --presets react,stage-0,es2015 -d lib/ ./index.js",
+    "prepare": "npm run compile"
   },
   "watch": {
     "src/**/*.js": [
@@ -28,7 +28,7 @@
   "devDependencies": {
     "babel-cli": "^6.11.4",
     "babel-core": "^6.11.4",
-    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.11.1",
     "babel-preset-stage-0": "^6.5.0"
   },

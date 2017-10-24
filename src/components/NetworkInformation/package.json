@@ -1,6 +1,6 @@
 {
   "name": "react-network-info",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "HoC providing info about the network conditions",
   "main": "./lib/index.js",
   "scripts": {

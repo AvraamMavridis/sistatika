@@ -36,7 +36,7 @@ export default class NetworkInformation extends PureComponent {
   }
 
   componentWillUnmount() {
-    this.connection.removeEventListener(this.updateConnectionStatus);
+    this.connection.removeEventListener('typechange', this.updateConnectionStatus);
   }
 
   render() {

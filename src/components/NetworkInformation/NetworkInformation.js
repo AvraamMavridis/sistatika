@@ -12,7 +12,7 @@ export default class NetworkInformation extends PureComponent {
     super(props);
     this.state = {
       downlink: Infinity,
-      effectiveType: undefined,
+      effectivetype: undefined,
       rtt: Infinity,
     };
   }
@@ -20,7 +20,7 @@ export default class NetworkInformation extends PureComponent {
   updateConnectionStatus() {
     this.setState({
       downlink: this.connection.downlink,
-      effectiveType: this.connection.effectiveType,
+      effectivetype: this.connection.effectiveType,
       rtt: this.connection.rtt,
     });
   }

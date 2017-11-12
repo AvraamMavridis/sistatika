@@ -1,10 +1,9 @@
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import PropTypes from 'prop-types';
-import {geoMercator, geoPath} from 'd3-geo';
 import worldData from './countries';
+import CountryMap from './CountryMap';
 
-export default class WorldMap extends Component {
-
+export default class WorldMap extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,7 +23,7 @@ export default class WorldMap extends Component {
     projectionTranslateY: PropTypes.number,
     /** How much to move the projection in the X axis */
     projectionTranslateX: PropTypes.number,
-  }
+  };
 
   static defaultProps = {
     mapWidth: window.innerWidth,
@@ -34,16 +33,6 @@ export default class WorldMap extends Component {
     fill: '#F3F3F3',
   };
 
-  getProjection() {
-    const { mapWidth, mapHeight } = this.state;
-    const { projectionTranslateX, projectionTranslateY } = this.props;
-
-    return geoMercator()
-      .fitSize([mapWidth, mapHeight], worldData)
-      .scale(mapWidth / 2 / Math.PI)
-      .translate([mapWidth / 2 + projectionTranslateX, mapHeight / 2 + projectionTranslateY]);
-  }
-
   componentDidMount() {
     this.setState({
       mapWidth: this.el.parentElement.clientWidth,
@@ -52,27 +41,23 @@ export default class WorldMap extends Component {
   }
 
   render() {
-    const { children, fill } = this.props;
-    const { mapWidth, mapHeight } = this.state;
+    const {children} = this.props;
+    const {mapWidth, mapHeight} = this.state;
 
     return (
       <svg
-        ref={(el) => (this.el = el)}
+        ref={el => (this.el = el)}
         viewBox={`0 0 ${mapWidth} ${mapHeight}`}
-        preserveAspectRatio="xMinYMin meet">
+        preserveAspectRatio="xMinYMin meet"
+      >
         <g className="countries">
-          {
-            worldData.features.map((d, i) => (
-              <path
-                id={d.properties.name}
-                key={`path-${i}`}
-                d={geoPath().projection(this.getProjection())(d)}
-                className="country"
-                fill={fill}
-              />
-            ))}
+          {worldData.features.map(d => (
+            <CountryMap {...this.props} {...this.state} d={d} />
+          ))}
         </g>
-        { React.Children.map(children, child => React.cloneElement(child, this.state)) }
+        {React.Children.map(children, child =>
+          React.cloneElement(child, this.state)
+        )}
       </svg>
     );
   }

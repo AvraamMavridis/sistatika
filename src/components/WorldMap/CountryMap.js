@@ -51,6 +51,7 @@ export default class CountryMap extends PureComponent {
         mapHeight / 2 + projectionTranslateY,
       ]);
   }
+
   render() {
     const {d} = this.props;
 

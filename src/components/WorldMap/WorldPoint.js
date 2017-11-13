@@ -1,6 +1,7 @@
 import React, {PureComponent} from 'react';
 import * as d3 from 'd3';
 import PropTypes from 'prop-types';
+import isNaN from 'lodash/isNaN';
 
 /**
  * WorldPoint is represents a circle inside a map
@@ -140,8 +141,11 @@ export default class WorldPoint extends PureComponent {
     const {translateX, translateY, radius, fill, mapWidth} = this.props;
 
     // Convert percentages to actual px
-    const x = (translateX / 100) * mapWidth;
-    const y = (translateY / 100) * mapWidth;
+    let x = (translateX / 100) * mapWidth;
+    let y = (translateY / 100) * mapWidth;
+
+    x = isNaN(x) ? 0 : x;
+    y = isNaN(y) ? 0 : y;
 
     return (
       <g ref={this.renderText} transform={`translate(${x},${y})`}>

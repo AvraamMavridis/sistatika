@@ -52,7 +52,7 @@ export default class WorldMap extends PureComponent {
       >
         <g className="countries">
           {worldData.features.map(d => (
-            <CountryMap {...this.props} {...this.state} d={d} />
+            <CountryMap key={d.properties.name} {...this.props} {...this.state} d={d} />
           ))}
         </g>
         {React.Children.map(children, child =>

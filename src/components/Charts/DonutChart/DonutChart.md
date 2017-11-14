@@ -1,4 +1,4 @@
-WorldMap:
+Example:
 
 ```js
 var dataset = [
@@ -6,8 +6,5 @@ var dataset = [
 	{ name: 'Chrome', percent: 32.51, color: '#262F3A' },
 ];
 
-<div style={{ height: '150px', width: '100px'}}>
- <DonutChart dataset={dataset}>
- </DonutChart>
-</div>
+<DonutChart dataset={dataset}></DonutChart>
 ```

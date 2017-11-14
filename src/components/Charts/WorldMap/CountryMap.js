@@ -1,7 +1,7 @@
-import React, {PureComponent} from 'react';
-import {geoMercator, geoPath} from 'd3-geo';
+import React, { PureComponent } from 'react';
+import { geoMercator, geoPath } from 'd3-geo';
 import PropTypes from 'prop-types';
-import worldData from './countries';
+import worldData from './countries.json';
 
 /**
  * The Country Map component is used by the WolrdMap
@@ -47,13 +47,14 @@ export default class CountryMap extends PureComponent {
       .fitSize([mapWidth, mapHeight], worldData)
       .scale(mapWidth / 2 / Math.PI)
       .translate([
-        mapWidth / 2 + projectionTranslateX,
-        mapHeight / 2 + projectionTranslateY,
+        (mapWidth / 2) + projectionTranslateX,
+        (mapHeight / 2) + projectionTranslateY,
       ]);
   }
 
   render() {
-    const {d} = this.props;
+    // eslint-disable-next-line
+    const { d } = this.props;
 
     return (
       <path

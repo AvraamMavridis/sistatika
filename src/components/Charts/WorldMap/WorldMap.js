@@ -1,17 +1,9 @@
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import worldData from './countries';
+import worldData from './countries.json';
 import CountryMap from './CountryMap';
 
 export default class WorldMap extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      mapWidth: props.mapWidth,
-      mapHeight: 600,
-    };
-  }
-
   static propTypes = {
     /** The initial width of the map, the projection is adjusted based on the parent container */
     mapWidth: PropTypes.number,
@@ -23,6 +15,7 @@ export default class WorldMap extends PureComponent {
     projectionTranslateY: PropTypes.number,
     /** How much to move the projection in the X axis */
     projectionTranslateX: PropTypes.number,
+    children: PropTypes.node,
   };
 
   static defaultProps = {
@@ -31,18 +24,11 @@ export default class WorldMap extends PureComponent {
     projectionTranslateY: 70,
     projectionTranslateX: 0,
     fill: '#F3F3F3',
+    children: [],
   };
 
-  componentDidMount() {
-    this.setState({
-      mapWidth: this.el.parentElement.clientWidth,
-      mapHeight: this.props.mapHeight,
-    });
-  }
-
   render() {
-    const {children} = this.props;
-    const {mapWidth, mapHeight} = this.state;
+    const { children, mapWidth, mapHeight } = this.props;
 
     return (
       <svg
@@ -56,8 +42,7 @@ export default class WorldMap extends PureComponent {
           ))}
         </g>
         {React.Children.map(children, child =>
-          React.cloneElement(child, this.state)
-        )}
+          React.cloneElement(child, this.state))}
       </svg>
     );
   }

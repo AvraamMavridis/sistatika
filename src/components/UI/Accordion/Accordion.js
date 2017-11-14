@@ -9,8 +9,7 @@ import './Accordion.scss';
  * @class Accordion
  * @extends {PureComponent}
  */
-class Accordion extends PureComponent {
-
+export default class Accordion extends PureComponent {
   /**
    * Component Interface
    *
@@ -20,12 +19,13 @@ class Accordion extends PureComponent {
   static propTypes = {
     onToggle: PropTypes.func,
     accordionWrapperClass: PropTypes.string,
-  }
+    children: PropTypes.node.isRequired,
+  };
 
   static defaultProps = {
-    onToggle: () => void (0),
+    onToggle: () => undefined,
     accordionWrapperClass: '',
-  }
+  };
 
   /**
    * Creates an instance of Accordion.
@@ -56,16 +56,16 @@ class Accordion extends PureComponent {
    * @memberof Accordion
    */
   render() {
-    const accordionWrapper = classNames('accordion', this.props.accordionWrapperClass);
+    const accordionWrapper = classNames(
+      'accordion',
+      this.props.accordionWrapperClass,
+    );
 
     return (
       <div className={accordionWrapper} role="presentation">
-        { React.Children.map(this.props.children, (child, index) => {
-          return React.cloneElement(child, { onToggle: this.onToggle, index });
-        })}
+        {React.Children.map(this.props.children, (child, index) =>
+          React.cloneElement(child, { onToggle: this.onToggle, index }))}
       </div>
     );
   }
 }
-
-export default Accordion;

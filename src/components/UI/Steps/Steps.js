@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import styles from './Steps.scss';
 import PropTypes from 'prop-types';
-import Step from './Step.js';
+import styles from './Steps.scss';
+import Step from './Step';
 
 /**
  * Steps Component
@@ -11,7 +11,6 @@ import Step from './Step.js';
  * @extends {Component}
  */
 export default class Steps extends Component {
-
   static propTypes = {
     /** The selected index */
     selectedIndex: PropTypes.number,
@@ -22,14 +21,14 @@ export default class Steps extends Component {
      */
     onSelect: PropTypes.func,
     /** Array of steps */
-    steps: PropTypes.arrayOf(PropTypes.string).isRequired,
-  }
+    steps: PropTypes.arrayOf(PropTypes.string),
+  };
 
   static defaultProps = {
     selectedIndex: Infinity,
-    onSelect: () => void (0),
+    onSelect: () => undefined,
     steps: [],
-  }
+  };
 
   /**
    * Creates an instance of Steps.
@@ -43,29 +42,6 @@ export default class Steps extends Component {
 
     this.onSelect = this.onSelect.bind(this);
     this.onKeyDown = this.onKeyDown.bind(this);
-  }
-
-  /**
-   * On Select handler
-   *
-   * @param {Boolean} selectedIndex
-   * @param {Event} e
-   */
-  onSelect(selectedIndex, event) {
-    this.setState({ selectedIndex }, () => {
-      this.props.onSelect(selectedIndex, event);
-    });
-  }
-
-  /**
-   * Listen to keyboard events
-   *
-   * @param {any} e
-   */
-  onKeyDown(e) {
-    if (e.key === 'Enter' && this.steps.contains(document.activeElement)) {
-      this.setState({ selectedIndex: document.activeElement.dataset.index });
-    }
   }
 
   /**
@@ -97,6 +73,29 @@ export default class Steps extends Component {
   }
 
   /**
+   * On Select handler
+   *
+   * @param {Boolean} selectedIndex
+   * @param {Event} e
+   */
+  onSelect(selectedIndex, event) {
+    this.setState({ selectedIndex }, () => {
+      this.props.onSelect(selectedIndex, event);
+    });
+  }
+
+  /**
+   * Listen to keyboard events
+   *
+   * @param {any} e
+   */
+  onKeyDown(e) {
+    if (e.key === 'Enter' && this.steps.contains(document.activeElement)) {
+      this.setState({ selectedIndex: parseInt(document.activeElement.dataset.index, 10) });
+    }
+  }
+
+  /**
    * Render Steps
    *
    * @returns {JSX.Element}
@@ -106,16 +105,16 @@ export default class Steps extends Component {
     const { selectedIndex } = this.state;
 
     return (
-      <span className={styles.steps} ref={(steps) => this.steps = steps }>
-        {
-          steps.map((text, i) => (
-            <Step
-              key={i}
-              index={i}
-              selectedIndex={ selectedIndex }
-              onSelect={ e => this.onSelect(i, e) } />)
-          )
-        }
+      <span className={styles.steps} ref={s => (this.steps = s)}>
+        {steps.map((text, i) => (
+          <Step
+            key={text}
+            index={i}
+            selectedIndex={selectedIndex}
+            onSelect={e => this.onSelect(i, e)}
+            onKeyDown={this.onKeyDown}
+          />
+        ))}
       </span>
     );
   }

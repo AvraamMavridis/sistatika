@@ -8,6 +8,20 @@ module.exports = {
     color: {
       link: 'firebrick',
       linkHover: 'salmon',
-    }
+    },
   },
+  sections: [
+    {
+      name: 'HoC Components',
+      components: './src/components/HoC/**/*.js',
+    },
+    {
+      name: 'Charts',
+      components: './src/components/Charts/**/*.js',
+    },
+    {
+      name: 'UI Components',
+      components: './src/components/UI/**/*.js',
+    },
+  ],
 };

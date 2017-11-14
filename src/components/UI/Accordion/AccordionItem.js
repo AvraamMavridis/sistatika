@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import './Accordion.scss';
 import classNames from 'classnames';
+import './Accordion.scss';
 
 /**
  * AccordionItem Component
@@ -11,7 +11,6 @@ import classNames from 'classnames';
  * @extends {Component}
  */
 export default class AccordionItem extends PureComponent {
-
   /**
    * Default config
    *
@@ -19,8 +18,9 @@ export default class AccordionItem extends PureComponent {
    * @memberof AccordionItem
    */
   static defaultProps = {
-    expande: false,
-    onToggle: () => void (0),
+    index: 0,
+    expanded: false,
+    onToggle: () => undefined,
     accordionHeaderClass: '',
     accordionChildrenClass: '',
   }
@@ -32,9 +32,12 @@ export default class AccordionItem extends PureComponent {
    * @memberof AccordionItem
    */
   static propTypes = {
+    index: PropTypes.number,
+    expanded: PropTypes.bool,
+    onToggle: PropTypes.func,
     id: PropTypes.string.isRequired,
-    children: PropTypes.node.isRequired,
     header: PropTypes.node.isRequired,
+    children: PropTypes.node.isRequired,
     accordionHeaderClass: PropTypes.string,
     accordionChildrenClass: PropTypes.string,
   }
@@ -47,7 +50,7 @@ export default class AccordionItem extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      expanded: false,
+      expanded: props.expanded,
     };
     this.toggleItem = this.toggleItem.bind(this);
   }
@@ -74,7 +77,9 @@ export default class AccordionItem extends PureComponent {
    */
   render() {
     const { expanded } = this.state;
-    const { children, header, id, index } = this.props;
+    const {
+      children, header, id, index,
+    } = this.props;
     const key = id !== undefined ? id : index;
     const accordionHeaderClass = classNames('accordion-header', this.props.accordionHeaderClass, {
       'accordion-header--expanded': expanded,
@@ -88,14 +93,16 @@ export default class AccordionItem extends PureComponent {
 
     return (
       <div>
-        <a className={accordionHeaderClass}
+        <a
+          className={accordionHeaderClass}
           href="#"
           id={buttonID}
           aria-controls={section}
           aria-expanded={expanded}
           onClick={this.toggleItem}
           role="button"
-          tabIndex={0}>
+          tabIndex={0}
+        >
           <div role="heading" aria-level="3">{header}</div>
         </a>
         <div className={accordionChildrenClass} aria-labelledby={buttonID} id={section} role="region">

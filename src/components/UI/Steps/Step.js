@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
-import styles from './Steps.scss';
 import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import styles from './Steps.scss';
 
 /**
  * Step Component
@@ -10,6 +11,12 @@ import classNames from 'classnames';
  * @extends {PureComponent}
  */
 export default class Step extends PureComponent {
+  static propTypes = {
+    index: PropTypes.number.isRequired,
+    selectedIndex: PropTypes.number.isRequired,
+    onSelect: PropTypes.func.isRequired,
+    onKeyDown: PropTypes.func.isRequired,
+  }
 
   /**
    * Render Step
@@ -17,7 +24,9 @@ export default class Step extends PureComponent {
    * @returns {JSX.Element}
    */
   render() {
-    const { index, selectedIndex, onSelect } = this.props;
+    const {
+      index, selectedIndex, onSelect, onKeyDown,
+    } = this.props;
     const stepClass = classNames(styles.step, {
       [styles.selected]: index <= selectedIndex - 1,
     });
@@ -33,7 +42,9 @@ export default class Step extends PureComponent {
           tabIndex={0}
           role="button"
           className={numberClass}
-          onClick={ onSelect }>
+          onClick={onSelect}
+          onKeyDown={onKeyDown}
+        >
           { index }
         </span>
       </span>

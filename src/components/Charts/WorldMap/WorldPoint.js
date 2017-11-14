@@ -1,4 +1,4 @@
-import React, {PureComponent} from 'react';
+import React, { PureComponent } from 'react';
 import * as d3 from 'd3';
 import PropTypes from 'prop-types';
 import isNaN from 'lodash/isNaN';
@@ -11,7 +11,6 @@ import isNaN from 'lodash/isNaN';
  * @extends {PureComponent}
  */
 export default class WorldPoint extends PureComponent {
-
   static propTypes = {
     /** The radious of the data point circle */
     radius: PropTypes.number,
@@ -39,12 +38,15 @@ export default class WorldPoint extends PureComponent {
     translateY: PropTypes.number,
     /** Determine if the circle will animate */
     animate: PropTypes.bool,
+    /* eslint-disable */
     /** Object with attributes and their values to animate */
     animateAttributes: PropTypes.object,
+    /* eslint-enable */
     /** Event on which the animation is triggered */
     animateEvent: PropTypes.string,
     /** Event on which the object returns in its initial state (before animation) */
     animateResetEvent: PropTypes.string,
+    mapWidth: PropTypes.number.isRequired,
   }
 
   static defaultProps = {
@@ -74,27 +76,29 @@ export default class WorldPoint extends PureComponent {
   }
 
   componentDidMount() {
-    const { animate, animateEvent, animateAttributes, animateResetEvent } = this.props;
+    const {
+      animate, animateEvent, animateAttributes, animateResetEvent,
+    } = this.props;
     if(animate) {
       const circle = d3.select(this.circle);
       const group = d3.select(this.g);
       const animateKeys = Object.keys(animateAttributes);
-      let initialProps = {};
+      const initialProps = {};
 
-      animateKeys.forEach(key => {
+      animateKeys.forEach((key) => {
         initialProps[key] = circle.attr(key);
       });
 
       group.on(animateEvent, () => {
         const transition = circle.transition();
-        animateKeys.forEach(key => {
+        animateKeys.forEach((key) => {
           transition.attr(key, animateAttributes[key]);
         });
       });
 
       group.on(animateResetEvent, () => {
         const transition = circle.transition();
-        animateKeys.forEach(key => {
+        animateKeys.forEach((key) => {
           transition.attr(key, initialProps[key]);
         });
       });
@@ -138,7 +142,9 @@ export default class WorldPoint extends PureComponent {
   }
 
   render() {
-    const {translateX, translateY, radius, fill, mapWidth} = this.props;
+    const {
+      translateX, translateY, radius, fill, mapWidth,
+    } = this.props;
 
     // Convert percentages to actual px
     let x = (translateX / 100) * mapWidth;
@@ -149,7 +155,7 @@ export default class WorldPoint extends PureComponent {
 
     return (
       <g ref={this.renderText} transform={`translate(${x},${y})`}>
-        <circle ref={(circle) => (this.circle = circle)} r={radius} fill={fill} />
+        <circle ref={circle => (this.circle = circle)} r={radius} fill={fill} />
       </g>
     );
   }

@@ -1,8 +1,16 @@
 {
-  "extends": "fbjs",
+  "extends": "airbnb",
+  "parser": "babel-eslint",
   "rules": {
     "jsx-a11y/no-noninteractive-tabindex": 0,
     "max-len": [2,120],
-    "keyword-spacing": 0
-  }
+    "keyword-spacing": 0,
+    "react/jsx-filename-extension": 0,
+    "jsx-a11y/anchor-is-valid": 0,
+    "no-return-assign": 0
+  },
+  "globals": {
+    "window": false,
+    "document": false
+}
 }

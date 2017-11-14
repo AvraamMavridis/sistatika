@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
-import styles from './Button.scss';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import styles from './Button.scss';
 
 /**
  * Button Component
@@ -11,7 +11,6 @@ import PropTypes from 'prop-types';
  * @extends {Component}
  */
 export default class Button extends PureComponent {
-
   static propTypes = {
     /** Boolean specifying if the primary styling will be applied */
     primary: PropTypes.bool,
@@ -32,7 +31,7 @@ export default class Button extends PureComponent {
     primary: false,
     secondary: false,
     className: '',
-    onClick: () => void (0),
+    onClick: () => undefined,
   }
 
   /**
@@ -41,7 +40,9 @@ export default class Button extends PureComponent {
    * @returns {JSX.Element}
    */
   render() {
-    const { primary, secondary, className, onClick } = this.props;
+    const {
+      primary, secondary, className, onClick,
+    } = this.props;
     const buttonClass = classNames(styles.default, className, {
       [styles.primary]: primary,
       [styles.secondary]: secondary,

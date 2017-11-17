@@ -3,6 +3,11 @@ import { geoMercator, geoPath } from 'd3-geo';
 import PropTypes from 'prop-types';
 import worldData from './countries.json';
 
+const MoveType = PropTypes.shape({
+  x: PropTypes.number,
+  y: PropTypes.number,
+});
+
 /**
  * The Country Map component is used by the WolrdMap
  *
@@ -20,17 +25,23 @@ export default class CountryMap extends PureComponent {
     mapHeight: PropTypes.number,
     /** The color of the map */
     fill: PropTypes.string,
-    /** How much to move the projection in the Y axis */
-    projectionTranslateY: PropTypes.number,
-    /** How much to move the projection in the X axis */
-    projectionTranslateX: PropTypes.number,
+
+    /** How much to move the projection */
+    translate: MoveType,
+    rotate: MoveType,
   };
 
   static defaultProps = {
     mapWidth: window.innerWidth,
     mapHeight: 600,
-    projectionTranslateY: 70,
-    projectionTranslateX: 0,
+    translate: {
+      x: 0,
+      y: 200,
+    },
+    rotate: {
+      x: 0,
+      y: 0,
+    },
     fill: '#F3F3F3',
     className: 'country',
   };
@@ -39,17 +50,10 @@ export default class CountryMap extends PureComponent {
     const {
       mapWidth,
       mapHeight,
-      projectionTranslateX,
-      projectionTranslateY,
     } = this.props;
 
     return geoMercator()
-      .fitSize([mapWidth, mapHeight], worldData)
-      .scale(mapWidth / 2 / Math.PI)
-      .translate([
-        (mapWidth / 2) + projectionTranslateX,
-        (mapHeight / 2) + projectionTranslateY,
-      ]);
+      .fitSize([mapWidth, mapHeight], worldData);
   }
 
   render() {
